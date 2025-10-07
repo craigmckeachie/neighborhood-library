@@ -59,6 +59,26 @@ public class Book {
         System.out.println("+------------------------------------------+");
     }
 
+    @Override
+    public String toString() {
+        String card = "+------------------------------------------+\n" +
+                "| ID: " + id + "\n" +
+                "| Title: " + title + "\n" +
+                "| ISBN: " + isbn + "\n" +
+                "| Checked Out: " + (isCheckedOut ? "Yes" : "No") + "\n";
+
+        if (isCheckedOut) {
+            card += "| Checked Out To: " + checkedOutTo + "\n";
+        }
+
+        card += "+------------------------------------------+";
+
+        return card;
+    }
+
+
+
+
 
 
 
