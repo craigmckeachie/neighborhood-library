@@ -55,9 +55,9 @@ public class Application {
         Book[] books = getBooks();
 
         for (Book book : books) {
-            if () {
+            if (!book.isCheckedOut()) {
+                System.out.println(book.toString());
             }
-            System.out.println(book.toString());
         }
     }
 
