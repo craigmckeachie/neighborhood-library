@@ -5,10 +5,9 @@ import java.util.Scanner;
 public class Application {
     // Shared scanner for the entire app
     private static final Scanner scanner = new Scanner(System.in);
+    private static Book[] books = getBooks();
 
     public static void main(String[] args) {
-
-
         runMainMenu();
         scanner.close();
     }
@@ -26,6 +25,7 @@ public class Application {
             switch (choice) {
                 case "A":
                     showAvailableBooks();
+                    runAvailableBooksMenu();
                     break;
                 case "C":
                     showCheckedOutBooks();
@@ -50,10 +50,59 @@ public class Application {
         System.out.println("(X) Closes out of the application");
     }
 
+    // Main menu loop
+    public static void runAvailableBooksMenu() {
+        boolean running = true;
+
+        while (running) {
+            displayAvailableBooksMenu();
+            System.out.print("Choose an option: ");
+            String choice = scanner.nextLine().trim().toUpperCase(); // normalize input
+
+            switch (choice) {
+                case "E":
+                    enterBookToCheckOut();
+                    break;
+                case "X":
+                    System.out.println("Exiting available books menu.");
+                    running = false;
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+
+            System.out.println(); // blank line for spacing
+        }
+    }
+
+
+    public static void enterBookToCheckOut(){
+        System.out.print("Enter the id of the book you want to checkout:");
+        int id = scanner.nextInt();
+        scanner.nextLine(); //eats the carriage return
+
+        Book bookToBeCheckedOut = null;
+        for (Book book : books) {
+            if ((book.getId() == id)) {
+                bookToBeCheckedOut = book;
+                break;
+            }
+        }
+
+        bookToBeCheckedOut.checkOut("Lucas");
+
+        System.out.println("You checked out:");
+
+    }
+
+    public static void displayAvailableBooksMenu() {
+        System.out.println("===== Available Books =====");
+        System.out.println("(E)nter the number of the book you would like to check out.");
+        System.out.println("Or press (X) to return to the Main Menu.");
+    }
+
     // Example menu actions
     public static void showAvailableBooks() {
-        Book[] books = getBooks();
-
         for (Book book : books) {
             if (!book.isCheckedOut()) {
                 System.out.println(book.toString());
@@ -62,8 +111,6 @@ public class Application {
     }
 
     public static void showCheckedOutBooks() {
-        Book[] books = getBooks();
-
         for (Book book : books) {
             if (book.isCheckedOut()) {
                 System.out.println(book.toString());
