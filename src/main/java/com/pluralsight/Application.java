@@ -1,14 +1,86 @@
 package com.pluralsight;
 
+import java.util.Scanner;
+
 public class Application {
+    // Shared scanner for the entire app
+    private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
+
+
+        runMainMenu();
+        scanner.close();
+    }
+
+
+    // Main menu loop
+    public static void runMainMenu() {
+        boolean running = true;
+
+        while (running) {
+            displayMenu();
+            System.out.print("Choose an option: ");
+            String choice = scanner.nextLine().trim().toUpperCase(); // normalize input
+
+            switch (choice) {
+                case "A":
+                    showAvailableBooks();
+                    break;
+                case "C":
+                    showCheckedOutBooks();
+                    break;
+                case "X":
+                    System.out.println("Exiting... Goodbye!");
+                    running = false;
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+
+            System.out.println(); // blank line for spacing
+        }
+    }
+
+    // Display menu
+    public static void displayMenu() {
+        System.out.println("===== Main Menu =====");
+        System.out.println("Show (A)vailable Books");
+        System.out.println("Show (C)hecked Out Books");
+        System.out.println("(X) Closes out of the application");
+    }
+
+    // Example menu actions
+    public static void showAvailableBooks() {
+        Book[] books = getBooks();
+
+        for (Book book : books) {
+            if () {
+            }
+            System.out.println(book.toString());
+        }
+    }
+
+    public static void showCheckedOutBooks() {
+        Book[] books = getBooks();
+
+        for (Book book : books) {
+            if (book.isCheckedOut()) {
+                System.out.println(book.toString());
+            }
+
+        }
+    }
+
+    private static Book[] getBooks() {
         Book[] books = new Book[20];
 
         Book book1 = new Book(1, "978-0-7475-3269-9", "Harry Potter and the Sorcerer's Stone");
         books[0] = book1;
 
         Book book2 = new Book(2, "978-0-7475-3849-3", "Harry Potter and the Chamber of Secrets");
+        book2.checkOut("Romell");
+
         books[1] = book2;
 
         Book book3 = new Book(3, "978-0-7475-4215-5", "Harry Potter and the Prisoner of Azkaban");
@@ -27,7 +99,9 @@ public class Application {
         books[6] = book7;
 
         Book book8 = new Book(8, "978-0-06-112008-4", "To Kill a Mockingbird");
+        book8.checkOut("Catrina");
         books[7] = book8;
+
 
         Book book9 = new Book(9, "978-0-452-28423-4", "1984");
         books[8] = book9;
@@ -42,6 +116,7 @@ public class Application {
         books[11] = book12;
 
         Book book13 = new Book(13, "978-0-618-34625-6", "The Lord of the Rings");
+        book13.checkOut("Mario");
         books[12] = book13;
 
         Book book14 = new Book(14, "978-0-316-76948-0", "Twilight");
@@ -64,15 +139,6 @@ public class Application {
 
         Book book20 = new Book(20, "978-0-452-28425-8", "Animal Farm");
         books[19] = book20;
-
-        for (Book book: books) {
-//             book.display();
-            System.out.println(book.toString());
-        }
-
-
-
-
-
+        return books;
     }
 }
