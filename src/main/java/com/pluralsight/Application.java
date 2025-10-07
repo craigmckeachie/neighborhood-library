@@ -65,12 +65,8 @@ public class Application {
         Book book20 = new Book(20, "978-0-452-28425-8", "Animal Farm");
         books[19] = book20;
 
-
-
-
-
         for (Book book: books) {
-            System.out.println(book);
+             book.display();
         }
 
 
